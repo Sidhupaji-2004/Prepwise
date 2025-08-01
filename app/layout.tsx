@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Mona_Sans } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
+import Image from "next/image";
 import { Toaster } from "sonner";
 
 const monaSans = Mona_Sans({
@@ -16,22 +18,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}:{children : React.ReactNode}) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={`${monaSans.className} antialiased pattern`}
-      >
-        {
-        /**
-          .className notation applies the font in all the children components
-         */
-        }
-        {children}
-        <Toaster />
-      </body>
-    </html>
+    <div className="root-layout">
+      <nav>
+        <Link href='/'>
+          <Image 
+            src='/logo.svg' 
+            alt="Prepwise Logo" 
+            height={32} 
+            width={38}
+            className="logo"
+            />
+          <h2 className="text-primary-100">Prepwise</h2>
+        </Link>
+      </nav>
+      {children}
+    </div>
   );
 }
