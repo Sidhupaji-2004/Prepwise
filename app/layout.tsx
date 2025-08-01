@@ -20,20 +20,25 @@ export default function RootLayout({
   children,
 }:{children : React.ReactNode}) {
   return (
-    <div className="root-layout">
-      <nav>
-        <Link href='/'>
-          <Image 
-            src='/logo.svg' 
-            alt="Prepwise Logo" 
-            height={32} 
-            width={38}
-            className="logo"
-            />
-          <h2 className="text-primary-100">Prepwise</h2>
-        </Link>
-      </nav>
-      {children}
-    </div>
+    <html lang="en" className="dark">
+      <body>
+        <div className="root-layout">
+          <nav>
+            <Link href='/'>
+              <Image 
+                src='/logo.svg' 
+                alt="Prepwise Logo" 
+                height={32} 
+                width={38}
+                className="logo"
+                />
+              <h2 className="text-primary-100">Prepwise</h2>
+            </Link>
+          </nav>
+          {children}
+        </div>
+      </body>
+    </html>
+    
   );
 }
