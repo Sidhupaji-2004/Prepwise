@@ -18,6 +18,10 @@ const initFirebaseAdmin = () => {
         auth: getAuth(), 
         db: getFirestore(), 
     }
+    /**
+     * We are initializing some admin functionalities which help us to perform some mutations   
+     * 
+     */
 }
 
 export const { auth, db } = initFirebaseAdmin();
