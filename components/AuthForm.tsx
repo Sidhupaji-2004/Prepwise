@@ -18,6 +18,9 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
+import { auth } from "@/firebase/client";
+import { createUserWithEmailAndPassword } from "firebase/auth"
+import { signUp } from "@/lib/actions/auth.action"
 // sonner toast is a new version of toast to be used by shadcn
 
 const formSchema = z.object({
@@ -47,9 +50,27 @@ const AuthForm = ({type}: {type: FormType}) => {
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try{
       if(type === 'sign-up'){
+        const { name, email, password } = values;
+        const userCredentials = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        ); // this is authenticating the user. 
+
+        const result = await signUp({
+          uid: userCredentials.user.uid,
+          name: name!, // you will always have a name
+          email,
+          password
+        })
+
+        if(!result?.success){
+          toast.error(result?.message); 
+          return; 
+        }
         toast.success('Account created successfully. Please sign in');
         router.push('/sign-in')
       }else{
