@@ -94,6 +94,12 @@ const Agent = ({userName, userId, interviewId, feedbackId, type, questions}: Age
       }
   };
 
+  useEffect(()=>{
+    if(messages.length > 0){
+      setLastMessage(messages[messages.length - 1].content);
+    }
+  }, [messages]);
+
   const handleDisconnect = () => {
     setCallStatus(CallStatus.FINISHED);
     vapi.stop();
@@ -145,12 +151,12 @@ const Agent = ({userName, userId, interviewId, feedbackId, type, questions}: Age
               {lastMessage}
             </p>
           </div>
-        </div>
+        </div> 
       )}
 
       <div className="w-full flex justify-center">
         {callStatus !== "ACTIVE" ? (
-          <button className="relative btn-call">
+          <button className="relative btn-call" onClick={() => handleCall()}>
             <span
               className={cn(
                 "absolute animate-ping rounded-full opacity-75",
@@ -165,7 +171,7 @@ const Agent = ({userName, userId, interviewId, feedbackId, type, questions}: Age
             </span>
           </button>
         ) : (
-          <button className="btn-disconnect">
+          <button className="btn-disconnect" onClick={() =>handleDisconnect()}>
             End
           </button>
         )}
