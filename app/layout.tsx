@@ -20,10 +20,6 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }:{children : React.ReactNode}) {
-  const isUserAuthenticated = await isAuthenticated(); 
-  if(!isUserAuthenticated) {
-    redirect('/sign-in');
-  }
   return (
     <html lang="en" className="dark">
       <body>
