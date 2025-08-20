@@ -1,11 +1,10 @@
 "use client";
 
-import Image from 'next/image'
-import {useState, useEffect} from 'react'
+import Image from 'next/image';
+import {useState, useEffect} from 'react';
 import { cn } from "@/lib/utils";
 import { useRouter } from 'next/navigation';
 import { interviewer } from '@/constants';
-import { signIn } from '@/lib/actions/auth.action';
 import { vapi } from './../lib/vapi.sdk';
 
 enum CallStatus{
@@ -72,7 +71,11 @@ const Agent = ({userName, userId, interviewId, feedbackId, type, questions}: Age
       setCallStatus(CallStatus.CONNECTING);
 
       if (type === "generate") {
-        await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
+        await vapi.start(
+          undefined,
+          undefined, 
+          undefined, 
+          process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
           variableValues: {
             username: userName,
             userid: userId,
